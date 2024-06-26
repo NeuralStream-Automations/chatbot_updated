@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <style>
+        /* Center the form */
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Adjust height as needed */
+        }
+
+        /* Style the form */
+        .appointment-form {
+            width: 400px; /* Adjust width as needed */
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style form inputs */
+        .appointment-form input[type="text"],
+        .appointment-form input[type="email"],
+        .appointment-form select,
+        .appointment-form .datepicker {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Style submit button */
+        .appointment-form input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .appointment-form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="appointment-form">
+            <h2>Appointment Form</h2>
+            <form action="/" method="post">
+                <p>Name: <input type="text" name="name" required></p>
+                <p>Mobile: <input type="text" name="mobile" required></p>
+                <p>Email: <input type="email" name="email" required></p>
+                <p>Department:
+                    <select name="department" required>
+                        <option value="" disabled selected>Select Department</option>
+                        {% for dept in departments %}
+                            <option value="{{ dept }}">{{ dept }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+                <p>Doctor:
+                    <select name="doctor" required>
+                        <option value="" disabled selected>Select Doctor</option>
+                        {% for doc in doctors %}
+                            <option value="{{ doc }}">{{ doc }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+                <p>Preferred Date: <input type="text" class="datepicker" name="appointment_date" required></p>
+                <p>Preferred Timeslot:
+                    <select name="timeslot" required>
+                        <option value="" disabled selected>Select Timeslot</option>
+                        {% for slot in timeslots %}
+                            <option value="{{ slot }}">{{ slot }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+                <p><input type="submit" value="Submit"></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        // Initialize datepicker
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            startDate: '+1d' // Allow dates from tomorrow onward
+        });
+    </script>
+</body>
+</html>
