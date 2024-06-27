@@ -6,7 +6,6 @@ from email.mime.multipart import MIMEMultipart
 
 app = Flask(__name__)
 
-# Load environment variables
 EMAIL = "ramanuj@neural-stream.com"
 PASSWORD = "mxxu ymmj rmzk vpgb"
 
