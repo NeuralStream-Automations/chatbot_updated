@@ -51,15 +51,22 @@
         .appointment-form input[type="submit"]:hover {
             background-color: #45a049;
         }
+
+        /* Error message style */
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="form-container">
         <div class="appointment-form">
             <h2>Appointment Form</h2>
-            <form action="/" method="post">
+            <form id="appointment-form" action="/" method="post">
                 <p>Name: <input type="text" name="name" required></p>
-                <p>Mobile: <input type="text" name="mobile" required></p>
+                <p>Mobile: <input type="text" name="mobile" pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number" required></p>
                 <p>Email: <input type="email" name="email" required></p>
                 <p>Department:
                     <select name="department" required>
@@ -88,6 +95,7 @@
                 </p>
                 <p><input type="submit" value="Submit"></p>
             </form>
+            <div id="error-messages" class="error-message"></div>
         </div>
     </div>
 
@@ -96,9 +104,36 @@
     <script>
         // Initialize datepicker
         $('.datepicker').datepicker({
-            format: 'yyyy-mm-dd',
+            format: 'dd-mm-yyyy',
             autoclose: true,
             startDate: '+1d' // Allow dates from tomorrow onward
+        });
+
+        // Client-side form validation
+        $('#appointment-form').submit(function(event) {
+            var form = $(this);
+            var isValid = form[0].checkValidity();
+            if (!isValid) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            // Display validation errors
+            form.addClass('was-validated');
+
+            // Example validation: Ensure mobile number is exactly 10 digits
+            var mobileField = form.find('input[name="mobile"]');
+            if (mobileField.val().length !== 10) {
+                var errorDiv = $('#error-messages');
+                errorDiv.text('Please enter a valid 10-digit mobile number');
+                errorDiv.show();
+                event.preventDefault();
+                event.stopPropagation();
+            } else {
+                $('#error-messages').hide();
+            }
+
+            form.addClass('was-validated');
         });
     </script>
 </body>
